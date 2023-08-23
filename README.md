@@ -1,3 +1,11 @@
+Todos планировщий задач
+
+HTML
+CSS
+Vue 3 (Options API)
+TypeScript
+Vue CLI
+
 # task_board
 
 ## Project setup
