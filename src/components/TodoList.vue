@@ -1,33 +1,38 @@
 <template>
     <div>
         <ul class="todo-list">
-            <li class="todo-item todo-item--done">
-                <div class="todo-item__status">
-                    <i class="bi bi-check2"></i>
-                </div>
-                <span class="todo-item__text">Learn the basics of Vue</span>
-                <button class="todo-item__remove-button">
-                    <i class="bi bi-trash3"></i>
-                </button>
-            </li>
-            <li class="todo-item">
-                <div class="todo-item__status">
-                    <i class="bi bi-check2"></i>
-                </div>
-                <span class="todo-item__text">Learn the basics of Typescript</span>
-                <button class="todo-item__remove-button">
-                    <i class="bi bi-trash3"></i>
-                </button>
-            </li>
-            <li class="todo-item">
-                <div class="todo-item__status">
-                    <i class="bi bi-check2"></i>
-                </div>
-                <span class="todo-item__text">Subscribe to the channel</span>
-                <button class="todo-item__remove-button">
-                    <i class="bi bi-trash3"></i>
-                </button>
-            </li>
+            <TodoItem v-for="todo in todos" :key="todo.id" :todo="todo" @toggle-todo="toggleTodo" />
         </ul>
     </div>
 </template>
+<script lang="ts">
+import { defineComponent } from "vue"
+import TodoItem from "./TodoItem.vue";
+import { Todo } from "@/types/Todo";
+
+interface State {
+  todos: Todo[]
+}
+
+export default defineComponent({
+  components: { TodoItem },
+  data(): State{
+    return {
+        todos: [
+            {id:0, text: 'Learn the basics', completed: true},
+            {id:1, text: 'Learn', completed: false},
+            {id:2, text: 'Learn the basics of Vue', completed: false}
+        ]
+    }
+  },
+  methods: {
+    toggleTodo(id:number) {
+        console.log(id);
+        const targetTodo = this.todos.find((todo: Todo) => todo.id === id);
+        if(targetTodo) {
+            targetTodo.completed = !targetTodo.completed;
+        }
+    }
+  }
+})
+</script>
